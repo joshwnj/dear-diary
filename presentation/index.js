@@ -6,8 +6,11 @@ import cmz from "cmz";
 import {
   Appear,
   BlockQuote,
+  CodePane,
   Cite,
   Deck,
+  Fit,
+  Fill,
   Heading,
   Image,
   ListItem,
@@ -30,7 +33,7 @@ require("spectacle/lib/themes/default/index.css");
 
 // customize css
 cmz('spectacle-slide', `
-  max-height: 700px
+  max-height: 1080px
 `).toString()
 
 const images = {
@@ -38,9 +41,9 @@ const images = {
   tabs: require('../assets/tabs.gif'),
   typewriter: require('../assets/typewriter.gif'),
   gitBlame: require('../assets/git-blame.jpg'),
-  traffic: require('../assets/traffic.jpg'),
+  traffic: require('../assets/traffic.png'),
   ancientSpinner: require('../assets/ancient-spinner.jpg'),
-  fireman: require('../assets/fireman.png'),
+  fireman: require('../assets/fireman2.png'),
   bush: require('../assets/bush.png'),
   bomb: require('../assets/bomb.png'),
   squeeze: require('../assets/squeeze.jpg'),
@@ -50,6 +53,7 @@ const images = {
   hammer: require('../assets/hammer.png'),
   palette: require('../assets/palette.png'),
   getCreative: require('../assets/getcreative.gif'),
+  knowledge: require('../assets/knowledge.png'),
 };
 
 preloader(images);
@@ -62,9 +66,9 @@ const colors = {
 };
 
 const fonts = {
-  primary: 'Open Sans Condensed',
-  secondary: 'Lobster Two',
-  tertiary: 'monospace'
+  primary: 'Fantasque Sans Mono',
+  secondary: 'Fantasque Sans Mono',
+  tertiary: 'Fantasque Sans Mono',
 };
 
 const theme = createTheme(colors, fonts)
@@ -92,6 +96,7 @@ const Bubble = hx(`
   border-radius: 15rem;
   overflow: hidden;
   margin-right: -4rem;
+  margin-bottom: -5rem;
 }
 
 & > img {
@@ -102,24 +107,21 @@ const Bubble = hx(`
 function Footer () {
   const Outer = hx(`
     position: fixed
-    width: 100%
     bottom: 2rem
-    text-align: right
-    padding-right: 2rem
+    right: 1rem
   `)
 
   const Inner = hx.span([
   `
     background: #fff
     padding: 1rem
-    font-weight: 800
     font-size: 1.5rem
   `, 
   monospace
   ])
   return (
 <Outer>
-  <Inner>@joshwnj</Inner>
+  <Inner><b>@joshwnj</b> - Dear Diary</Inner>
 </Outer>
   )
 }
@@ -132,53 +134,29 @@ export default class Presentation extends React.Component {
       <Deck progress='none' transition={["fade"]} transitionDuration={500} theme={theme}>
         <Slide>
           <Heading>Dear Diary</Heading>
-          <Heading>journal writing for programmers</Heading>
-          
-          <Appear>
-            <Image src={images.logo} />
-          </Appear>
+          <Heading>~</Heading>
+          <Heading size={3}><em>Journal writing for programmers</em></Heading>
+        </Slide>
+
+        <Slide>
+          <div className={cmz(['display: flex', 'text-align: left'])}>
+            <Image src={images.traffic} style={{maxHeight: '90vh', marginLeft: '-8vw', marginTop: '-5vh', marginRight: '5vw'}} />
+            <Heading size={3}>Bad ideas can gain widespread adoption</Heading>
+          </div>
+        </Slide>
+
+        <Slide>
+          <div className={cmz(['display: flex', 'text-align: left'])}>
+            <Image src={images.ancientSpinner} style={{maxHeight: '90vh', marginLeft: '-16vw', marginTop: '-7vh', marginRight: '5vw'}} />
+            <Heading size={3}>Good ideas can come before their time</Heading>
+          </div>
         </Slide>
 
         <Slide bgImage={images.tabs} bgDarken={0.1}>
         </Slide>
 
-        <Slide bgImage={images.typewriter}>
-        </Slide>
-
         <Slide>
-          <Heading>placeholder: future rate of innovation</Heading>
-          
-          <Appear>
-            <Text>stay about the same?</Text>
-          </Appear>
-          <Appear>
-            <Text>curve up?</Text>
-          </Appear>
-          <Appear>
-            <Text>flatten out?</Text>
-          </Appear>
-        </Slide>
-
-        <Slide>
-          <Heading>placeholder: how many npm users?</Heading>
-        </Slide>
-
-        <Slide>
-          <div className={cmz(['display: flex', 'text-align: left'])}>
-            <Image src={images.traffic} style={{maxHeight: '90vh'}} />
-            <Heading size={3}>Sometimes bad ideas take hold</Heading>
-          </div>
-        </Slide>
-
-        <Slide>
-          <div className={cmz(['display: flex', 'text-align: left'])}>
-            <Image src={images.ancientSpinner} style={{maxHeight: '90vh'}} />
-            <Heading size={3}>Sometimes good ideas come before their time</Heading>
-          </div>
-        </Slide>
-
-        <Slide>
-          <Heading>keeping up</Heading>
+          <Heading>Keeping Up</Heading>
         </Slide>
 
         <Slide bgImage={images.fireman}>
@@ -186,11 +164,18 @@ export default class Presentation extends React.Component {
 
         <Slide bgColor="secondary">
           <BlockQuote>
-            <Text textColor="primary">there is increased evidence that we are being bogged down today as specialization extends. The investigator is staggered by the findings and conclusions of thousands of other workers - conclusions which he cannot find time to grasp, much less to remember</Text>
+            <Quote textColor="primary" style={{fontSize: '4rem'}}>there is increased evidence that we are being bogged down today as specialization extends. </Quote>
+          </BlockQuote>
+        </Slide>
+
+        <Slide bgColor="secondary">
+          <BlockQuote>
+
+            <Quote textColor="primary" style={{fontSize: '4rem'}}>The investigator is staggered by the findings and conclusions of thousands of other workers - conclusions which he cannot find time to grasp, much less to remember</Quote>
             <Appear><Cite textColor="quarternary">Vannevar Bush, 1945</Cite></Appear>
           </BlockQuote>
 
-          <div className={cmz(['display: flex'])}>
+          <div className={cmz(['display: flex', 'flex-direction: column', 'position: absolute', 'left: -11vw', 'top: 5vh'])}>
             <Appear><div>
               <Bubble><img src={images.bush} /></Bubble>
             </div></Appear>
@@ -209,7 +194,7 @@ export default class Presentation extends React.Component {
           </div>
         </Slide>
 
-        <Slide bgImage={images.swords}>
+        <Slide bgImage={images.swords} style={{ backgroundPosition: 'center bottom' }}>
         </Slide>
 
         <Slide bgImage={images.memex}>
@@ -218,11 +203,11 @@ export default class Presentation extends React.Component {
         <Slide>
           <Heading>
           <div className={cmz(['display: flex', 'justify-content: space-around', 'align-items: center'])}>
-            <img src={images.hammer} />
+            <img src={images.hammer} style={{ background: 'white', borderRadius: '100rem', padding: '2rem' }} />
 
             VS
 
-            <img src={images.palette} />
+            <img src={images.palette} style={{ background: 'white', borderRadius: '100rem', padding: '2rem' }} />
           </div>
           </Heading>
           <Appear>
@@ -238,13 +223,42 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <Slide>
-          <Heading>story == fact + significance</Heading>
+          <Heading>
+            <div className={cmz(['display: flex', 'justify-content: space-around', 'align-items: center'])}>
+              <Appear><Heading>fact</Heading></Appear>
+
+              <Appear><Heading>&nbsp;+&nbsp;</Heading></Appear>
+
+              <Appear><Heading>significance</Heading></Appear>
+            </div>
+          </Heading>
  
-          <Appear><Text>a program well written shares the same qualities as a story well told</Text></Appear>
+          <Appear>
+            <div>
+              <Heading>~</Heading>
+
+              <Text><em>A program well written shares the same qualities as a story well told.</em></Text>
+            </div>
+          </Appear>
         </Slide>
 
         <Slide>
-          <Heading>placeholder: code examples</Heading>
+          <Fill>
+          <div style={{display: 'flex'}}>
+            
+            <CodePane
+              style={{fontSize: '2rem', marginLeft: '-20vw', marginRight: '2vw'}}
+              lang="js"
+              source={require("raw-loader!./example-1")}
+              margin="20px auto" />
+
+              <CodePane
+                style={{fontSize: '2rem'}}
+                lang="js"
+                source={require("raw-loader!./example-2")}
+                margin="20px auto" />
+          </div>
+          </Fill>
         </Slide>
 
         <Slide bgImage={images.gitBlame} bgDarken={0.75}>
@@ -254,47 +268,49 @@ export default class Presentation extends React.Component {
         <Slide>
           <Text><b>designers</b> should learn to <b>code</b>?</Text>
           <Text><b>coders</b> should learn to <b>design?</b></Text>
-          <Appear><Heading><b>coders:</b> learn to <b>write</b></Heading></Appear>
+          <Appear><div>
+            <Heading>~</Heading>
+            <Heading><em><b>coders:</b> learn to <b>write</b></em></Heading>
+          </div></Appear>
         </Slide>
 
         <Slide>
-          <Heading>How can I start?</Heading>
+          <Heading>Getting started</Heading>
         </Slide>
 
         <Slide>
           <Heading>Two modes of writing</Heading>
-          <Appear><Text>Fast & Furious</Text></Appear>
-          <Appear><Text>2 Summarise, 2 Categorise</Text></Appear>          
+          <Heading>~</Heading>
+          <Appear><Heading size={4}>Fast & Furious</Heading></Appear>
+          <Appear><Heading size={4}>2 Summarise, 2 Categorise</Heading></Appear>          
         </Slide>
 
         <Slide>
-          <Heading>The TIL</Heading>
+          <Heading>TIL</Heading>
         </Slide>
 
         <Slide>
           <Heading>The 3 Fears</Heading>
-          <Appear><Text>What If I'm Wrong?</Text></Appear>
-          <Appear><Text>What If I'm Right?</Text></Appear>
-          <Appear><Text>What If Nobody Cares?</Text></Appear>
+          <Heading>~</Heading>
+          <Appear><Heading size={4}>What If I'm Wrong?</Heading></Appear>
+          <Appear><Heading size={4}>What If I'm Right?</Heading></Appear>
+          <Appear><Heading size={4}>What If Nobody Cares?</Heading></Appear>
+        </Slide>
+
+        <Slide bgImage={images.knowledge} />
+
+        <Slide></Slide>
+
+        <Slide>
+          <Heading>WIP</Heading>
         </Slide>
 
         <Slide>
-          <Heading>placeholder: Knowledge repos</Heading>
-        </Slide>
-
-        <Slide>
-          <Heading>.</Heading>
-        </Slide>
-
-        <Slide>
-          <Heading>The WIP</Heading>
-        </Slide>
-
-        <Slide>
-          <Heading>The 3 Fears Again</Heading>
-          <Appear><Text>What If I'm Wrong?</Text></Appear>
-          <Appear><Text>What If I'm Right?</Text></Appear>
-          <Appear><Text>What If Nobody Cares?</Text></Appear>
+          <Heading>The 3 Fears (Again)</Heading>
+          <Heading>~</Heading>
+          <Appear><Heading size={4}>What If I'm Wrong?</Heading></Appear>
+          <Appear><Heading size={4}>What If I'm Right?</Heading></Appear>
+          <Appear><Heading size={4}>What If Nobody Cares?</Heading></Appear>
         </Slide>
 
         <Slide>
@@ -302,19 +318,31 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <Slide>
-          <Heading><em>The team that WIPs together ships together</em></Heading>
+          <Heading><em>&ldquo;The team that WIPs together ships together&rdquo;</em></Heading>
         </Slide>
 
         <Slide>
-          <div style={{textAlign: 'left'}}>
-            <Heading size={3}>1. Programming is a creative act</Heading>
-            <Appear><Heading size={3}>2. A program is a story</Heading></Appear>
-            <Appear><Heading size={3}>3. Leave a trail</Heading></Appear>
+          <div>
+            <Heading size={3}>Programming is a creative act</Heading>
+            
+            <Appear>
+              <div>
+                <Heading>~</Heading>
+                <Heading size={3}>A program is a story</Heading>
+              </div>
+            </Appear>
+
+            <Appear>
+              <div>
+                <Heading>~</Heading>
+                <Heading size={3}>Leave a trail</Heading>
+              </div>
+            </Appear>
           </div>
         </Slide>
 
         <Slide>
-          <Heading><em>Thanks CampJS!</em></Heading>
+          <Heading textColor={'#f69'}><em>Thanks CampJS!</em></Heading>
         </Slide>
       </Deck>
 
