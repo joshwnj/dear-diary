@@ -2,6 +2,8 @@
 
 Slides for my talk given at CampJS VIII
 
-[view online](https://joshwnj.github.io/dear-diary/)
+[view the slides online](https://joshwnj.github.io/dear-diary/)
+
+[watch the video](https://vimeo.com/239373531)
 
 I used [spectacle-boilerplate](https://github.com/FormidableLabs/spectacle-boilerplate/) to make these slides, check it out.
